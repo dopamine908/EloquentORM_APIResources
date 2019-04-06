@@ -7,6 +7,7 @@ use App\Flight;
 use App\Http\Resources\FlightResource;
 use App\Http\Resources\FlightCollection;
 use App\Http\Resources\FlightCollectionWithDataWrapping;
+use App\Http\Resources\FlightCollectionWithPaginate;
 
 class APIResourcesController extends Controller
 {
@@ -48,5 +49,18 @@ class APIResourcesController extends Controller
     public function collectionＷithDataWrapping() {
         $flights = Flight::all();
         return new FlightCollectionWithDataWrapping($flights);
+    }
+
+    /**
+     * 分頁資料包裝
+     *
+     * @return FlightCollectionWithPaginate
+     */
+    public function collectionＷithPaginate() {
+        /**
+         * 可以直接傳入paginate出來的collection
+         */
+        $flights = Flight::paginate(3);
+        return new FlightCollectionWithPaginate($flights);
     }
 }

@@ -45,3 +45,10 @@ Route::get('移除最外層資料包裝', 'APIResourcesController@resourceＷith
 |--------------------------------------------------------------------------
 */
 Route::get('包裝巢狀的資源', 'APIResourcesController@collectionＷithDataWrapping');
+
+/*
+|--------------------------------------------------------------------------
+| 分頁資料包裝
+|--------------------------------------------------------------------------
+*/
+Route::get('分頁資料包裝', 'APIResourcesController@collectionＷithPaginate');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Flight;
 use App\Http\Resources\FlightResource;
 use App\Http\Resources\FlightCollection;
+use App\Http\Resources\FlightCollectionWithDataWrapping;
 
 class APIResourcesController extends Controller
 {
@@ -37,5 +38,15 @@ class APIResourcesController extends Controller
     public function resourceＷithoutWrapping() {
         $flight = Flight::find(5);
         return new FlightResource($flight);
+    }
+
+    /**
+     * 包裝巢狀的資源
+     *
+     * @return FlightCollectionWithDataWrapping
+     */
+    public function collectionＷithDataWrapping() {
+        $flights = Flight::all();
+        return new FlightCollectionWithDataWrapping($flights);
     }
 }

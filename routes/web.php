@@ -38,3 +38,10 @@ Route::get('ResourceCollection', 'APIResourcesController@resource_collection');
 |--------------------------------------------------------------------------
 */
 Route::get('移除最外層資料包裝', 'APIResourcesController@resourceＷithoutWrapping');
+
+/*
+|--------------------------------------------------------------------------
+| 包裝巢狀的資源
+|--------------------------------------------------------------------------
+*/
+Route::get('包裝巢狀的資源', 'APIResourcesController@collectionＷithDataWrapping');

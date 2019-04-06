@@ -28,4 +28,14 @@ class APIResourcesController extends Controller
         $flights = Flight::all();
         return new FlightCollection($flights);
     }
+
+    /**
+     * 回傳 移除最外層資料包裝的 resource
+     *
+     * @return FlightResource
+     */
+    public function resourceＷithoutWrapping() {
+        $flight = Flight::find(5);
+        return new FlightResource($flight);
+    }
 }

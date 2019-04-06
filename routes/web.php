@@ -31,3 +31,10 @@ Route::get('/', function () {
 */
 Route::get('Resource', 'APIResourcesController@resource');
 Route::get('ResourceCollection', 'APIResourcesController@resource_collection');
+
+/*
+|--------------------------------------------------------------------------
+| 移除最外層資料包裝
+|--------------------------------------------------------------------------
+*/
+Route::get('移除最外層資料包裝', 'APIResourcesController@resourceＷithoutWrapping');

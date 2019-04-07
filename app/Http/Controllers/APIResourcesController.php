@@ -8,6 +8,7 @@ use App\Http\Resources\FlightResource;
 use App\Http\Resources\FlightCollection;
 use App\Http\Resources\FlightCollectionWithDataWrapping;
 use App\Http\Resources\FlightCollectionWithPaginate;
+use App\Http\Resources\FlightResourceWhen;
 
 class APIResourcesController extends Controller
 {
@@ -62,5 +63,18 @@ class APIResourcesController extends Controller
          */
         $flights = Flight::paginate(3);
         return new FlightCollectionWithPaginate($flights);
+    }
+
+    /**
+     * 有條件的屬性
+     *
+     * @return FlightResourceWhen
+     */
+    public function when() {
+        //Active = 0
+        $flight = Flight::find(5);
+        //Active = 1
+        $flight = Flight::find(9);
+        return new FlightResourceWhen($flight);
     }
 }

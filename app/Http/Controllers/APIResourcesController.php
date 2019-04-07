@@ -9,6 +9,7 @@ use App\Http\Resources\FlightCollection;
 use App\Http\Resources\FlightCollectionWithDataWrapping;
 use App\Http\Resources\FlightCollectionWithPaginate;
 use App\Http\Resources\FlightResourceWhen;
+use App\Http\Resources\FlightResourceMergeWhen;
 
 class APIResourcesController extends Controller
 {
@@ -76,5 +77,18 @@ class APIResourcesController extends Controller
         //Active = 1
         $flight = Flight::find(9);
         return new FlightResourceWhen($flight);
+    }
+
+    /**
+     * 合併有條件的屬性
+     *
+     * @return FlightResourceMergeWhen
+     */
+    public function mergeWhen() {
+        //Active = 0
+        $flight = Flight::find(5);
+        //Active = 1
+        $flight = Flight::find(9);
+        return new FlightResourceMergeWhen($flight);
     }
 }

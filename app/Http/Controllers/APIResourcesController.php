@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Flight;
+use App\Post;
 use App\Http\Resources\FlightResource;
 use App\Http\Resources\FlightCollection;
 use App\Http\Resources\FlightCollectionWithDataWrapping;
 use App\Http\Resources\FlightCollectionWithPaginate;
 use App\Http\Resources\FlightResourceWhen;
 use App\Http\Resources\FlightResourceMergeWhen;
+use App\Http\Resources\PostResourceWhenLoaded;
 
 class APIResourcesController extends Controller
 {
@@ -90,5 +92,26 @@ class APIResourcesController extends Controller
         //Active = 1
         $flight = Flight::find(9);
         return new FlightResourceMergeWhen($flight);
+    }
+
+    /**
+     * 有條件的關聯
+     *
+     * @return PostResourceWhenLoaded
+     */
+    public function relation_load() {
+        /**
+         * 因為有載入了OneToManyComment
+         * 所以出來的資料會有Comment鍵
+         */
+        $post = Post::with('OneToManyComment')->find(1);
+
+        /**
+         * 因為沒有載入了OneToManyComment
+         * 所以出來的資料會沒有Comment鍵
+         */
+        $post = Post::find(1);
+
+        return new PostResourceWhenLoaded($post);
     }
 }

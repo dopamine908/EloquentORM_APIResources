@@ -80,3 +80,12 @@ Route::get('有條件的關聯', 'APIResourcesController@relation_load');
 |--------------------------------------------------------------------------
 */
 Route::get('有條件的中介資訊', 'APIResourcesController@whenPivotLoaded');
+
+/*
+|--------------------------------------------------------------------------
+| 新增最上層的MetaData
+|--------------------------------------------------------------------------
+*/
+Route::get('新增Resource最上層的MetaData', 'APIResourcesController@withResource');
+Route::get('新增Collection最上層的MetaData', 'APIResourcesController@withCollection');
+Route::get('在建構資源時新增MetaData', 'APIResourcesController@additional');

@@ -14,6 +14,9 @@ use App\Http\Resources\FlightResourceWhen;
 use App\Http\Resources\FlightResourceMergeWhen;
 use App\Http\Resources\PostResourceWhenLoaded;
 use App\Http\Resources\RoleResourceWhenPivotLoaded;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserResourceNoWith;
 
 class APIResourcesController extends Controller
 {
@@ -130,5 +133,45 @@ class APIResourcesController extends Controller
          */
         $Role = $user->ManyToManyRole[0];
         return new RoleResourceWhenPivotLoaded($Role);
+    }
+
+    /**
+     * 新增最上層的MetaData - Resource
+     *
+     * @return UserResource
+     */
+    public function withResource() {
+        $user = User::find(1);
+        return new UserResource($user);
+    }
+
+    /**
+     * 新增最上層的MetaData - Collection
+     *
+     * @return UserResource
+     */
+    public function withCollection() {
+        $users = User::all();
+        return new UserCollection($users);
+    }
+
+    /**
+     * 在建構資源時新增 Meta Data 的資料
+     *
+     * @return $this
+     */
+    public function additional() {
+        $user = User::find(1);
+        /**
+         * 可以用additional在包裝resource的時候新增別的資料
+         */
+        return (new UserResourceNoWith($user))
+            ->additional(
+                [
+                    'meta' => [
+                        'key' => 'value',
+                    ],
+                ]
+            );
     }
 }

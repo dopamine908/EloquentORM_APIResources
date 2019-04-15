@@ -89,3 +89,12 @@ Route::get('有條件的中介資訊', 'APIResourcesController@whenPivotLoaded')
 Route::get('新增Resource最上層的MetaData', 'APIResourcesController@withResource');
 Route::get('新增Collection最上層的MetaData', 'APIResourcesController@withCollection');
 Route::get('在建構資源時新增MetaData', 'APIResourcesController@additional');
+
+/*
+|--------------------------------------------------------------------------
+| 資源回應
+|--------------------------------------------------------------------------
+*/
+Route::get('新增Resource資源回應設定', 'APIResourcesController@withResponseResource');
+Route::get('新增Collection資源回應設定', 'APIResourcesController@withResponseCollection');
+Route::get('在建構資源時新增資源回應設定', 'APIResourcesController@response');

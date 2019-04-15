@@ -17,6 +17,8 @@ use App\Http\Resources\RoleResourceWhenPivotLoaded;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceNoWith;
+use App\Http\Resources\UserResourceWithResponse;
+use App\Http\Resources\UserCollectionWithResponse;
 
 class APIResourcesController extends Controller
 {
@@ -173,5 +175,43 @@ class APIResourcesController extends Controller
                     ],
                 ]
             );
+    }
+
+    /**
+     * 新增Resource資源回應設定
+     *
+     * @return UserResourceWithResponse
+     */
+    public function withResponseResource() {
+        $user = User::find(1);
+        return new UserResourceWithResponse($user);
+    }
+
+    /**
+     * 新增Collection資源回應設定
+     *
+     * @return UserCollectionWithResponse
+     */
+    public function withResponseCollection() {
+        $users = User::all();
+        return new UserCollectionWithResponse($users);
+    }
+
+    /**
+     * 在建構資源時新增資源回應設定
+     * 
+     * @return $this
+     */
+    public function response() {
+        $user = User::find(1);
+
+        /**
+         * 你可以鏈結 response 方法到資源上
+         * 這個方法會回傳 Illuminate\Http\Response 實例
+         * 可以自訂response的資訊
+         */
+        return (new UserResourceNoWith($user))
+                ->response()
+                ->header('X-Value', 'True');
     }
 }

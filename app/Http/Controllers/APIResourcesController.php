@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Flight;
 use App\Post;
+use App\MyUser AS User;
 use App\Http\Resources\FlightResource;
 use App\Http\Resources\FlightCollection;
 use App\Http\Resources\FlightCollectionWithDataWrapping;
@@ -12,6 +13,7 @@ use App\Http\Resources\FlightCollectionWithPaginate;
 use App\Http\Resources\FlightResourceWhen;
 use App\Http\Resources\FlightResourceMergeWhen;
 use App\Http\Resources\PostResourceWhenLoaded;
+use App\Http\Resources\RoleResourceWhenPivotLoaded;
 
 class APIResourcesController extends Controller
 {
@@ -113,5 +115,20 @@ class APIResourcesController extends Controller
         $post = Post::find(1);
 
         return new PostResourceWhenLoaded($post);
+    }
+
+    /**
+     * 有條件的中介資訊
+     *
+     * @return RoleResourceWhenPivotLoaded
+     */
+    public function whenPivotLoaded() {
+        $user = User::with('ManyToManyRole')->find(1);
+        /**
+         * Model 裡面的 relation 有實例化 pivot
+         * 則觸發 whenPivotLoaded
+         */
+        $Role = $user->ManyToManyRole[0];
+        return new RoleResourceWhenPivotLoaded($Role);
     }
 }
